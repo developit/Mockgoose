@@ -95,7 +95,11 @@ describe('Mockgoose Update Tests', function () {
 
                     model.update({email: 'updated@testing.com'}, function (err, result) {
                         expect(err).not.to.be.undefined;
-                        expect(result).to.be.undefined;
+                        // as of Mongosoe 4.0.x, `Model.update` returns the MongoDB object
+                        // src: http://mongoosejs.com/docs/api.html#model_Model.update
+                        // MongoDB update result object expalined: http://docs.mongodb.org/manual/reference/command/update/#output
+                        expect(result.n).to.be.equal(0);
+                        expect(result.nModified).to.be.equal(0);
                         mockgoose.setMockReadyState(mongoose.connection, 1);
                         done();
                     });
