@@ -450,7 +450,7 @@ describe('Mockgoose Find Tests', function () {
             AccountModel.create(
                 {email: 'multiples@valid.com', password: 'password', values: ['one', 'two']},
                 function () {
-                    AccountModel.findOneAndUpdate({email: 'multiples@valid.com'}, {email: 'updatedemail@email.com'}, function (err, result) {
+                    AccountModel.findOneAndUpdate({email: 'multiples@valid.com'}, {email: 'updatedemail@email.com'}, {new: true}, function (err, result) {
                         expect(result).to.not.be.undefined;
                         if (result) {
                             expect(result.email).to.equal('updatedemail@email.com');
@@ -470,6 +470,8 @@ describe('Mockgoose Find Tests', function () {
                         expect(result).to.not.be.undefined;
                         if (result) {
                             expect(result.email).to.equal('updatedemails@email.com');
+                        } else {
+                            done('Error finding models');
                         }
                         AccountModel.findOne({email: 'updatedemails@email.com'}, function (err, found) {
                             expect(found).to.not.be.undefined;
@@ -484,7 +486,7 @@ describe('Mockgoose Find Tests', function () {
                 {email: 'multiples@valid.com', password: 'password', values: ['one', 'two']},
                 function () {
                     AccountModel.findOneAndUpdate({email: 'multiples@valid.com'},
-                        {email: 'updatedemail@email.com', values: ['updated']}, function (err, result) {
+                        {email: 'updatedemail@email.com', values: ['updated']}, {new: true}, function (err, result) {
                             expect(result).to.not.be.undefined;
                             if (result) {
                                 expect(result.email).to.equal('updatedemail@email.com');
@@ -498,7 +500,7 @@ describe('Mockgoose Find Tests', function () {
         });
 
         it('should be able to findOneAndUpdate with an upsert', function (done) {
-            SimpleModel.findOneAndUpdate({name: 'upsert'}, {name: 'upsert'}, {upsert: true}, function (err, result) {
+            SimpleModel.findOneAndUpdate({name: 'upsert'}, {name: 'upsert'}, {upsert: true, new: true}, function (err, result) {
                 expect(err).not.to.be.ok;
                 expect(result).to.be.ok;
                 if (result) {
@@ -612,7 +614,7 @@ describe('Mockgoose Find Tests', function () {
 
     describe('findByIdAndRemove', function () {
 
-        it('Be able to remove an item by its id', function (done) {
+            it('Be able to remove an item by its id', function (done) {
             SimpleModel.create(
                 {name: 'one', value: 'one'}, function (err, result) {
                     SimpleModel.findByIdAndRemove(result._id, function (err, removed) {
