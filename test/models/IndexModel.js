@@ -10,7 +10,7 @@ module.exports = function (mongoose) {
         type: {type: String, 'default': TYPE},
         name:String,
         value:Number,
-        increment:{type:Number, 'default': 5}
+        increase:{type:Number, 'default': 5}
     });
 
     /**

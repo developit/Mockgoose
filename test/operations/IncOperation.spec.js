@@ -47,9 +47,9 @@ describe('Mockgoose $INC Operation Tests', function () {
         });
 
         it('Be able to update multiple values', function (done) {
-            IndexModel.findOneAndUpdate({name: 'one'}, {$inc: {value: -5, increment: 5}}, function (err, res) {
+            IndexModel.findOneAndUpdate({name: 'one'}, {$inc: {value: -5, increase: 5}}, function (err, res) {
                 expect(res.value).to.equal(-2);
-                expect(res.increment).to.equal(10);
+                expect(res.increase).to.equal(10);
                 done(err);
             });
         });
