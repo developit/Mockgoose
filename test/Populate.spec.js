@@ -60,10 +60,8 @@ describe('Mockgoose Populate test', function () {
 
     describe('Populate', function () {
         it('should find the childs within the parent', function (done) {
-            CompanyEntry.findOne({name: 'Test Company'},function (err) {
-                expect(err).not.to.be.ok;
 
-            }).populate('users').exec(function (err, result) {
+            CompanyEntry.findOne({name: 'Test Company'}).populate('users').exec(function (err, result) {
                     expect(result.users.length).to.equal(1);
                     done();
                 });
